@@ -1,0 +1,46 @@
+.blockBack {
+  position: absolute;
+  width: 100%;
+  height: 860px;
+  background-color: black;
+  opacity: 0.8;
+  z-index: 2;
+  top: 0;
+}
+
+.form {
+  z-index: 3;
+  position: absolute;
+  width: 550px;
+  height: 350px;
+  top: 150px;
+  left: 550px;
+  background-color: #17212B;
+  text-align: center;
+}
+
+.form input, .form textarea {
+  font-size: 20px;
+  width: 90%;
+  height: 12%;
+  background-color: #152B42;
+  color: #fff;
+  border: 2px solid #4082BC;
+  margin-bottom: 15px;
+}
+
+.form button {
+  font-size: 20px;
+  margin: 0 auto;
+  display: block;
+  width: 30%;
+  height: 16%;
+  background-color: #152B42;
+  color: #fff;
+  border: 2px solid #4082BC;
+}
+
+.form textarea {
+  resize: none;
+  height: 25%;
+}

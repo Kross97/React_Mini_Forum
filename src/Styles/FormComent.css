@@ -1,0 +1,22 @@
+.form {
+width: 50%;
+height: 205px;
+margin: 15px 0 0 15px;
+}
+
+.form button {
+  display: block;
+  width: 35%;
+  height: 28px;
+  border-radius: 25px;
+}
+
+.form input, .form textarea {
+  width: 75%;
+  height: 10%;
+}
+
+.form textarea {
+  height: 45%;
+  resize: none;
+}
