@@ -22,5 +22,6 @@ module.exports = {
     "no-case-declarations": 0,
     "react/prop-types": 0,
     "import/no-named-as-default-member": 0,
+    "react/button-has-type": 0,
   },
 };
