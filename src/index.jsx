@@ -2,11 +2,12 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { enableBatching } from 'redux-batched-actions';
 import { Application } from './Componets/Application';
 import reducer from './reducers';
 
 export const store = configureStore({
-  reducer,
+  reducer: enableBatching(reducer),
 });
 
 ReactDOM.render(

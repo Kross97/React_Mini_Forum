@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { normalize, schema } from 'normalizr';
+import { batchActions } from 'redux-batched-actions';
 import { allPosts, allUsers, allComments } from '../reducers';
 
 const userSchema = new schema.Entity('users');
 const postsSchema = new schema.Entity(
   'posts',
-  { user: userSchema },
+  // eslint-disable-next-line no-use-before-define
+  { user: userSchema, comments: arrayCommentsSchema },
   {
     mergeStrategy: (entityA, entityB) => ({
       ...entityA,
@@ -59,15 +61,13 @@ export const getAllPosts = () => async (dispatch) => {
   try {
     const response = await axios.get('http://localhost:3000/posts');
     const data = normalize(response.data, arrayPostsSchema);
-    dispatch(allUsers.actions.addMany(data.entities.users));
-    data.result.forEach((id) => {
-      const post = data.entities.posts[id];
-      const comments = normalize(post.comments, arrayCommentsSchema);
-      post.comments = comments.result;
-      dispatch(allPosts.actions.add(post));
-      dispatch(allUsers.actions.addMany(comments.entities.users));
-      dispatch(allComments.actions.addMany(comments.entities.comments));
-    });
+    dispatch(
+      batchActions([
+        allUsers.actions.addMany(data.entities.users),
+        allPosts.actions.addMany(data.entities.posts),
+        allComments.actions.addMany(data.entities.comments),
+      ]),
+    );
   } catch (e) {
     // console.log(e);
   }
