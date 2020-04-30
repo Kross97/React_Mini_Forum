@@ -4,34 +4,16 @@ import { batchActions } from 'redux-batched-actions';
 import { allPosts, allUsers, allComments } from '../reducers';
 
 const userSchema = new schema.Entity('users');
-<<<<<<< HEAD
 
 const commentsSchema = new schema.Entity(
   'comments',
   { user: userSchema },
-  {
-    mergeStrategy: (entityA, entityB) => ({
-      ...entityA,
-      ...entityB,
-      favorites: entityA.favorites,
-    }),
-  },
 );
 
-const arrayCommentsSchema = new schema.Array(commentsSchema);
-
-=======
-const commentsSchema = new schema.Entity(
-  'comments',
-  { user: userSchema },
-);
->>>>>>> 6ed8a8a3cf6defa436b595ca854bb282e1e23748
 const postsSchema = new schema.Entity(
   'posts',
   { user: userSchema, comments: [commentsSchema] },
 );
-
-const arrayPostsSchema = new schema.Array(postsSchema);
 
 export const addPost = (newPost) => async (dispatch) => {
   try {
@@ -62,9 +44,6 @@ export const getAllPosts = () => async (dispatch) => {
   try {
     const response = await axios.get('http://localhost:3000/posts');
     const data = normalize(response.data, [postsSchema]);
-    // dispatch(allUsers.actions.addMany(data.entities.users));
-    // dispatch(allComments.actions.addMany(data.entities.comments));
-    // dispatch(allPosts.actions.addMany(data.entities.posts));
     dispatch(
       batchActions([
         allUsers.actions.addMany(data.entities.users),

@@ -1,0 +1,22 @@
+.container {
+  background-color: #17212B;
+}
+
+.post {
+  border: 3px solid #3346ae;
+  color: #fff;
+  background-color: #234A6D;
+}
+
+.post:hover {
+  background-color: #3570a6;
+  cursor: pointer;
+}
+
+.comment {
+  color: #fff;
+}
+
+.commentBody {
+  border: 6px solid black;
+}

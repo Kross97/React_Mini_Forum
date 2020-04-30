@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import {
   Formik,
@@ -8,6 +8,9 @@ import {
 import * as yup from 'yup';
 import { bindActionCreators } from 'redux';
 import edit from '../Styles/FormEdit.css';
+import editDark from '../Styles/FormEditDark.css';
+import editLight from '../Styles/FormEditLight.css';
+import { ThemaApp } from './Application';
 import { allPosts, allUsers, allComments } from '../reducers';
 
 const actionCreators = {
@@ -24,6 +27,7 @@ export const FormsEdit = () => {
     updateOneComment,
   } = bindActionCreators(actionCreators, dispatch);
 
+  const themaApp = useContext(ThemaApp);
   const postId = useSelector((state) => state.allPosts.currentPost);
   const { currentPost, currentUser } = useSelector((state) => (
     postId !== 0 ? {
@@ -48,8 +52,9 @@ export const FormsEdit = () => {
     updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
   };
 
+  const editStyle = themaApp === 'dark' ? editDark : editLight;
   return (
-    <div className={edit.container}>
+    <div className={`${edit.container} ${editStyle.container}`}>
       <Formik
         key={postId}
         initialValues={currentPost && postId !== 0
@@ -65,7 +70,7 @@ export const FormsEdit = () => {
         }}
       >
         {({ errors }) => (
-          <Form className={edit.form}>
+          <Form className={`${edit.form} ${editStyle.form}`}>
             <p>Форма для поста</p>
             <Field type="text" name="userName" />
             <Field type="text" name="thema" />
@@ -90,7 +95,7 @@ export const FormsEdit = () => {
         }}
       >
         {({ errors }) => (
-          <Form className={edit.form}>
+          <Form className={`${edit.form} ${editStyle.form}`}>
             <p>Форма для комментария</p>
             <Field type="text" name="userNameComment" />
             <Field as="textarea" type="text" name="textComment" />

@@ -1,0 +1,24 @@
+.blockBack {
+  background-color: #235705;
+}
+
+.form {
+  background-color: #4082bc;
+}
+
+.form input, .form textarea {
+  background-color: #4082bc;
+  color: black;
+  border: 3px solid black;
+}
+
+.form button {
+  background-color: #4082bc;
+  color: black;
+  border: 3px solid black;
+}
+
+.form button:hover {
+  background-color: #30628f;
+  cursor: pointer;
+}

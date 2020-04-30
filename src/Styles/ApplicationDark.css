@@ -12,3 +12,7 @@
   background-color: #4082BC;
   border: none;
 }
+
+.btnAdd:hover {
+  background-color: #306a9d;
+}

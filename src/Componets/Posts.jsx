@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import posts from '../Styles/Posts.css';
+import postsDark from '../Styles/PostsDark.css';
+import postsLight from '../Styles/PostsLight.css';
 import { Post } from './Post';
+import { ThemaApp } from './Application';
 import * as actions from '../actions/actions';
 
 const actionCreators = {
@@ -10,14 +13,10 @@ const actionCreators = {
 };
 
 export const Posts = () => {
-  const allposts = useSelector(({ allUsers, allPosts }) => (
-    allPosts.ids.map((id) => {
-      const idUser = allPosts.entities[id].user;
-      return { ...allPosts.entities[id], user: allUsers.entities[idUser] };
-    })
-  ));
-  console.log('Posts -> render', allposts);
+  const allposts = useSelector(({ allPosts }) => allPosts.ids);
 
+  const thema = useContext(ThemaApp);
+  const postsStyle = thema === 'dark' ? postsDark : postsLight;
   const dispatch = useDispatch();
   const { getAllPosts } = bindActionCreators(actionCreators, dispatch);
   useEffect(() => {
@@ -25,9 +24,9 @@ export const Posts = () => {
   }, []);
 
   return (
-    <aside className={posts.container}>
-      {allposts.length !== 0 && allposts.map((post) => (
-        <Post key={post.id} post={post} />
+    <aside className={`${posts.container} ${postsStyle.container}`}>
+      {allposts.length !== 0 && allposts.map((postId) => (
+        <Post key={postId} postId={postId} />
       ))}
     </aside>
   );

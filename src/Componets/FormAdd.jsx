@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import uniqueId from 'lodash/uniqueId';
 import {
   Formik,
@@ -10,6 +10,9 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import add from '../Styles/FormAdd.css';
+import addDark from '../Styles/FormAddDark.css';
+import addLight from '../Styles/FormAddLight.css';
+import { ThemaApp } from './Application';
 import * as actions from '../actions/actions';
 
 const actionCreators = {
@@ -21,6 +24,7 @@ export const FormAdd = (props) => {
   const dispatch = useDispatch();
   const { addPost } = bindActionCreators(actionCreators, dispatch);
 
+  const themaApp = useContext(ThemaApp);
   const addNewPost = ({ thema, text, userName }) => {
     const date = new Date();
     const newPost = {
@@ -37,9 +41,10 @@ export const FormAdd = (props) => {
     changeShowFormAdd();
   };
 
+  const addStyle = themaApp === 'dark' ? addDark : addLight;
   return (
     <>
-      <div onClick={changeShowFormAdd} className={add.blockBack} aria-hidden />
+      <div onClick={changeShowFormAdd} className={`${add.blockBack} ${addStyle.blockBack}`} aria-hidden />
       <Formik
         initialValues={{ thema: '', userName: '', text: '' }}
         validationSchema={yup.object({
@@ -51,7 +56,7 @@ export const FormAdd = (props) => {
           addNewPost(values);
         }}
       >
-        <Form className={add.form}>
+        <Form className={`${add.form} ${addStyle.form}`}>
           <Field type="text" name="thema" placeholder="введите тему" />
           <ErrorMessage name="thema" component="p" className={add.error} />
           <Field type="text" name="userName" placeholder="введите имя пользователя" />
