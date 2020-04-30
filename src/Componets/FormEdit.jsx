@@ -38,9 +38,6 @@ export const FormEdit = () => {
       currentUserComment: state.allUsers.entities[state.allComments.entities[commentId].user],
     } : { currentComment: undefined, currentUserComment: undefined }), shallowEqual);
 
-  console.log(currentUserComment);
-  console.log(currentComment);
-  console.log(commentId);
   const changeThema = ({ target }) => {
     setThema(target.value);
   };

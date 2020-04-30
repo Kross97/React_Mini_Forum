@@ -17,7 +17,6 @@ export const Posts = () => {
     })
   ));
 
-
   const dispatch = useDispatch();
   const { getAllPosts } = bindActionCreators(actionCreators, dispatch);
   useEffect(() => {

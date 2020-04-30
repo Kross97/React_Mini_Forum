@@ -20,8 +20,8 @@ const postsSchema = new schema.Entity(
 export const addPost = (newPost) => async (dispatch) => {
   try {
     const data = normalize(newPost, postsSchema);
-    dispatch(allPosts.actions.add(data.entities.posts[newPost.id]));
     dispatch(allUsers.actions.add(data.entities.users[newPost.user.id]));
+    dispatch(allPosts.actions.add(data.entities.posts[newPost.id]));
     await axios.post('http://localhost:3000/posts', newPost);
   } catch (e) {
     console.log(e);
