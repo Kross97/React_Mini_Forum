@@ -33,7 +33,6 @@ export const FormAdd = (props) => {
       },
       comments: [],
     };
-
     addPost(newPost);
     changeShowFormAdd();
   };

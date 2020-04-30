@@ -4,29 +4,6 @@ import { batchActions } from 'redux-batched-actions';
 import { allPosts, allUsers, allComments } from '../reducers';
 
 const userSchema = new schema.Entity('users');
-const postsSchema = new schema.Entity(
-  'posts',
-  // eslint-disable-next-line no-use-before-define
-  { user: userSchema, comments: arrayCommentsSchema },
-  {
-    mergeStrategy: (entityA, entityB) => ({
-      ...entityA,
-      ...entityB,
-      favorites: entityA.favorites,
-    }),
-  },
-);
-
-export const addPost = (newPost) => async (dispatch) => {
-  try {
-    const data = normalize(newPost, postsSchema);
-    dispatch(allUsers.actions.add(data.entities.users[newPost.user.id]));
-    dispatch(allPosts.actions.add(data.entities.posts[newPost.id]));
-    await axios.post('http://localhost:3000/posts', newPost);
-  } catch (e) {
-    console.log(e);
-  }
-};
 
 const commentsSchema = new schema.Entity(
   'comments',
@@ -40,6 +17,34 @@ const commentsSchema = new schema.Entity(
   },
 );
 
+const arrayCommentsSchema = new schema.Array(commentsSchema);
+
+const postsSchema = new schema.Entity(
+  'posts',
+  // eslint-disable-next-line no-use-before-define
+  { user: userSchema, comments: arrayCommentsSchema },
+  {
+    mergeStrategy: (entityA, entityB) => ({
+      ...entityA,
+      ...entityB,
+      favorites: entityA.favorites,
+    }),
+  },
+);
+
+const arrayPostsSchema = new schema.Array(postsSchema);
+
+export const addPost = (newPost) => async (dispatch) => {
+  try {
+    const data = normalize(newPost, postsSchema);
+    dispatch(allUsers.actions.add(data.entities.users[newPost.user.id]));
+    dispatch(allPosts.actions.add(data.entities.posts[newPost.id]));
+    await axios.post('http://localhost:3000/posts', newPost);
+  } catch (e) {
+    // console.log(e);
+  }
+};
+
 export const addNewComent = (idPost, newComment) => async (dispatch) => {
   try {
     const data = normalize(newComment, commentsSchema);
@@ -50,12 +55,9 @@ export const addNewComent = (idPost, newComment) => async (dispatch) => {
     currentPost.comments.push(newComment);
     await axios.patch(`http://localhost:3000/posts/${idPost}`, currentPost);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
-
-const arrayPostsSchema = new schema.Array(postsSchema);
-const arrayCommentsSchema = new schema.Array(commentsSchema);
 
 export const getAllPosts = () => async (dispatch) => {
   try {

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-// import { bindActionCreators } from 'redux';
-// import { useDispatch, useSelector } from 'react-redux';
 import { Posts } from './Posts';
-import { FormEdit } from './FormEdit';
+import { FormsEdit } from './FormsEdit';
 import { FormAdd } from './FormAdd';
 import app from '../Styles/Application.css';
 
@@ -12,6 +10,7 @@ export const Application = () => {
   const changeShowFormAdd = () => {
     setIsShowFormAdd(!isShowFormAdd);
   };
+
   return (
     <>
       <nav className={app.navigation}>
@@ -19,7 +18,7 @@ export const Application = () => {
       </nav>
       { isShowFormAdd && <FormAdd changeShowFormAdd={changeShowFormAdd} /> }
       <Posts />
-      <FormEdit />
+      <FormsEdit />
     </>
   );
 };
