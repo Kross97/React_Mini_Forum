@@ -16,6 +16,7 @@ export const Posts = () => {
       return { ...allPosts.entities[id], user: allUsers.entities[idUser] };
     })
   ));
+  console.log('Posts -> render', allposts);
 
   const dispatch = useDispatch();
   const { getAllPosts } = bindActionCreators(actionCreators, dispatch);

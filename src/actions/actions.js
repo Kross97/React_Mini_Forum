@@ -4,17 +4,13 @@ import { batchActions } from 'redux-batched-actions';
 import { allPosts, allUsers, allComments } from '../reducers';
 
 const userSchema = new schema.Entity('users');
+const commentsSchema = new schema.Entity(
+  'comments',
+  { user: userSchema },
+);
 const postsSchema = new schema.Entity(
   'posts',
-  // eslint-disable-next-line no-use-before-define
-  { user: userSchema, comments: arrayCommentsSchema },
-  {
-    mergeStrategy: (entityA, entityB) => ({
-      ...entityA,
-      ...entityB,
-      favorites: entityA.favorites,
-    }),
-  },
+  { user: userSchema, comments: [commentsSchema] },
 );
 
 export const addPost = (newPost) => async (dispatch) => {
@@ -27,18 +23,6 @@ export const addPost = (newPost) => async (dispatch) => {
     console.log(e);
   }
 };
-
-const commentsSchema = new schema.Entity(
-  'comments',
-  { user: userSchema },
-  {
-    mergeStrategy: (entityA, entityB) => ({
-      ...entityA,
-      ...entityB,
-      favorites: entityA.favorites,
-    }),
-  },
-);
 
 export const addNewComent = (idPost, newComment) => async (dispatch) => {
   try {
@@ -54,13 +38,13 @@ export const addNewComent = (idPost, newComment) => async (dispatch) => {
   }
 };
 
-const arrayPostsSchema = new schema.Array(postsSchema);
-const arrayCommentsSchema = new schema.Array(commentsSchema);
-
 export const getAllPosts = () => async (dispatch) => {
   try {
     const response = await axios.get('http://localhost:3000/posts');
-    const data = normalize(response.data, arrayPostsSchema);
+    const data = normalize(response.data, [postsSchema]);
+    // dispatch(allUsers.actions.addMany(data.entities.users));
+    // dispatch(allComments.actions.addMany(data.entities.comments));
+    // dispatch(allPosts.actions.addMany(data.entities.posts));
     dispatch(
       batchActions([
         allUsers.actions.addMany(data.entities.users),
@@ -69,6 +53,6 @@ export const getAllPosts = () => async (dispatch) => {
       ]),
     );
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 };
