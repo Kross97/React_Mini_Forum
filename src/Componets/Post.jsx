@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import posts from '../Styles/Posts.css';
-import postsDark from '../Styles/PostsDark.css';
-import postsLight from '../Styles/PostsLight.css';
 import { FormComent } from './FormComent';
 import { allComments, allPosts } from '../reducers';
 import { Comment } from './Comment';
 import { ThemaApp } from './Application';
+import { User } from './User';
+import { CommentButton } from '../UIComponents/UIComment';
+import { CurrentPost } from '../UIComponents/UIPosts';
 // споcоб через reselect
 // import { selectComments } from './Selectors';
 
@@ -32,10 +33,10 @@ export const Post = (props) => {
     setCurrentComment,
   } = bindActionCreators(actionCreators, dispatch);
 
-  const showFormComent = () => {
+  const showFormComent = useCallback(() => {
     setShowComentForm(!showComentForm);
     setShowLookComents(false);
-  };
+  }, [showComentForm]);
 
   const showLookComents = (e) => {
     e.stopPropagation();
@@ -43,40 +44,38 @@ export const Post = (props) => {
     setShowLookComents(!lookComents);
   };
 
-  const changeCurrentPost = (idPost) => () => {
-    setCurrentPost({ id: idPost });
+  const changeCurrentPost = () => {
+    setCurrentPost({ id: postId });
   };
 
   const post = useSelector((state) => state.allPosts.entities[postId]);
-  const userPost = useSelector((state) => state.allUsers.entities[post.user]);
 
-  const removeCurrentPost = (idPost) => (e) => {
+  const removeCurrentPost = (e) => {
     e.stopPropagation();
     setCurrentPost({ id: 0 });
     setCurrentComment({ id: 0 });
-    removePost(idPost);
+    removePost(postId);
     removeManyComments(post.comments);
   };
 
-  const postsStyle = thema === 'dark' ? postsDark : postsLight;
-  // способо через reselect
+  // способ через reselect
   // const comments = useSelector((state) => selectComments(state, post.comments));
 
   return (
-    <div onClick={changeCurrentPost(post.id)} className={`${posts.post} ${postsStyle.post}`} aria-hidden>
-      <button className={posts.btnRemove} onClick={removeCurrentPost(post.id)} aria-label="remove" type="button" />
+    <CurrentPost thema={thema} onClick={changeCurrentPost} aria-hidden>
+      <button className={posts.btnRemove} onClick={removeCurrentPost} aria-label="remove" type="button" />
       <div className={posts.infoPost}>
-        <span>{userPost.name}</span>
+        <User idSource={post.user} />
         <span>{post.thema}</span>
       </div>
       <p>{post.text}</p>
-      <button className={`${posts.comment} ${postsStyle.comment}`} onClick={showFormComent} type="button">Добавить комментарий</button>
-      {post.comments.length !== 0 && <button className={`${posts.comment} ${postsStyle.comment}`} onClick={showLookComents} type="button">Посмотреть комментарий</button>}
+      <CommentButton thema={thema} onClick={showFormComent} type="button">Добавить комментарий</CommentButton>
+      {post.comments.length !== 0 && <CommentButton thema={thema} onClick={showLookComents} type="button">Посмотреть комментарий</CommentButton>}
       {lookComents && post.comments.map((commId) => (
         <Comment postId={post.id} comments={post.comments} commId={commId} />
       ))}
       {showComentForm
         && <FormComent postId={post.id} comments={post.comments} showFormComent={showFormComent} />}
-    </div>
+    </CurrentPost>
   );
 };

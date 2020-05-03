@@ -53,6 +53,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "style-loader": "^1.0.0",
+    "styled-components": "^5.1.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "yup": "^0.28.4"

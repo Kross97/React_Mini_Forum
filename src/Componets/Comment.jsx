@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { allComments, allPosts } from '../reducers';
 import posts from '../Styles/Posts.css';
-import postsDark from '../Styles/PostsDark.css';
-import postsLight from '../Styles/PostsLight.css';
 import { ThemaApp } from './Application';
+import { User } from './User';
+import { CommentPost } from '../UIComponents/UIComment';
 
 const actionCreators = {
   removeComment: allComments.actions.removeOne,
@@ -13,7 +13,7 @@ const actionCreators = {
   setCurrentComment: allComments.actions.setCurrentComment,
 };
 
-export const Comment = (props) => {
+export const Comment = React.memo((props) => {
   const { commId, postId, comments } = props;
 
   const dispatch = useDispatch();
@@ -25,29 +25,27 @@ export const Comment = (props) => {
 
   const thema = useContext(ThemaApp);
 
-  const commentForEdit = (idComment) => (e) => {
+  const commentForEdit = (e) => {
     e.stopPropagation();
-    setCurrentComment({ id: idComment });
+    setCurrentComment({ id: commId });
   };
 
-  const removeCurrentComent = (idComment) => (e) => {
+  const removeCurrentComent = (e) => {
     e.stopPropagation();
     setCurrentComment({ id: 0 });
-    removeComment(idComment);
+    removeComment(commId);
     updateOnePost(
-      { id: postId, changes: { comments: comments.filter((id) => id !== idComment) } },
+      { id: postId, changes: { comments: comments.filter((id) => id !== commId) } },
     );
   };
 
-  const postsStyle = thema === 'dark' ? postsDark : postsLight;
-
   const comment = useSelector((state) => state.allComments.entities[commId]);
-  const commentUser = useSelector((state) => state.allUsers.entities[comment.user]);
+
   return (
-    <div onClick={commentForEdit(commId)} className={`${posts.commentBody} ${postsStyle.commentBody}`} aria-hidden>
-      <button className={posts.btnRemove} onClick={removeCurrentComent(commId)} aria-label="remove" type="button" />
-      <span>{commentUser.name}</span>
+    <CommentPost onClick={commentForEdit} thema={thema} aria-hidden>
+      <button className={posts.btnRemove} onClick={removeCurrentComent} aria-label="remove" type="button" />
+      <User idSource={comment.user} />
       <span>{comment.text}</span>
-    </div>
+    </CommentPost>
   );
-};
+});

@@ -3,15 +3,12 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import {
   Formik,
   Field,
-  Form,
 } from 'formik';
 import * as yup from 'yup';
 import { bindActionCreators } from 'redux';
-import edit from '../Styles/FormEdit.css';
-import editDark from '../Styles/FormEditDark.css';
-import editLight from '../Styles/FormEditLight.css';
 import { ThemaApp } from './Application';
 import { allPosts, allUsers, allComments } from '../reducers';
+import { ContainerForms, CustomForm } from '../UIComponents/UIFormEdit';
 
 const actionCreators = {
   updateOnePost: allPosts.actions.updateOnePost,
@@ -52,9 +49,8 @@ export const FormsEdit = () => {
     updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
   };
 
-  const editStyle = themaApp === 'dark' ? editDark : editLight;
   return (
-    <div className={`${edit.container} ${editStyle.container}`}>
+    <ContainerForms thema={themaApp}>
       <Formik
         key={postId}
         initialValues={currentPost && postId !== 0
@@ -69,8 +65,8 @@ export const FormsEdit = () => {
           changePost(values);
         }}
       >
-        {({ errors }) => (
-          <Form className={`${edit.form} ${editStyle.form}`}>
+        {({ errors, handleSubmit }) => (
+          <CustomForm thema={themaApp} onSubmit={handleSubmit}>
             <p>Форма для поста</p>
             <Field type="text" name="userName" />
             <Field type="text" name="thema" />
@@ -78,7 +74,7 @@ export const FormsEdit = () => {
             {(errors.userName || errors.thema || errors.text)
               && <span>{errors.userName || errors.thema || errors.text}</span>}
             <button type="submit">Изменить</button>
-          </Form>
+          </CustomForm>
         )}
       </Formik>
       <Formik
@@ -94,17 +90,17 @@ export const FormsEdit = () => {
           changeComment(values);
         }}
       >
-        {({ errors }) => (
-          <Form className={`${edit.form} ${editStyle.form}`}>
+        {({ errors, handleSubmit }) => (
+          <CustomForm thema={themaApp} onSubmit={handleSubmit}>
             <p>Форма для комментария</p>
             <Field type="text" name="userNameComment" />
             <Field as="textarea" type="text" name="textComment" />
             {(errors.userNameComment || errors.textComment)
             && <span>{errors.userNameComment || errors.textComment}</span>}
             <button type="submit">Изменить</button>
-          </Form>
+          </CustomForm>
         )}
       </Formik>
-    </div>
+    </ContainerForms>
   );
 };
