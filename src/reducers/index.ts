@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, combineReducers, createEntityAdapter } from '@reduxjs/toolkit';
+import { IPost, IComment, IUser } from './IReducers';
 
-
-const postsAdapter = createEntityAdapter();
+const postsAdapter = createEntityAdapter<IPost>();
 
 export const allPosts = createSlice({
   name: 'posts',
@@ -21,7 +21,7 @@ export const allPosts = createSlice({
   },
 });
 
-const usersAdapter = createEntityAdapter();
+const usersAdapter = createEntityAdapter<IUser>();
 
 export const allUsers = createSlice({
   name: 'users',
@@ -29,11 +29,11 @@ export const allUsers = createSlice({
   reducers: {
     add: usersAdapter.addOne,
     addMany: usersAdapter.addMany,
-    updateOneUser: postsAdapter.updateOne,
+    updateOneUser: usersAdapter.updateOne,
   },
 });
 
-const commentsAdapter = createEntityAdapter();
+const commentsAdapter = createEntityAdapter<IComment>();
 
 export const allComments = createSlice({
   name: 'comments',

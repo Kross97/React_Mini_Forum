@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { IPropsUI } from './IUIInterfaces';
 
 export const ContainerForms = styled.div`
 display: inline-block;
 background-color: #17212b;
 width: 50%;
-height: 847px;
-background-color: ${(props) => (props.thema === 'dark' ? '#17212b' : '#4082bc')};
+height: 877px;
+background-color: ${(props: IPropsUI) => (props.theme.thema === 'dark' ? '#17212b' : '#4082bc')};
 `;
 
 export const CustomForm = styled.form`
@@ -15,10 +16,10 @@ export const CustomForm = styled.form`
   margin: 0 auto;
   font-size: 25px;
   text-align: center;
-  background-color: ${(props) => (props.thema === 'dark' ? '#234a6d' : '#abf')};
+  background-color: ${(props: IPropsUI) => (props.theme.thema === 'dark' ? '#234a6d' : '#abf')};
 
   p:nth-child(1) {
-    color: ${(props) => (props.thema === 'dark' ? '#fff' : 'black')};
+    color: ${(props: IPropsUI) => (props.theme.thema === 'dark' ? '#fff' : 'black')};
   }
 
 input, textarea {

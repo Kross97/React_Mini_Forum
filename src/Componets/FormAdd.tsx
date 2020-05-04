@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import {
   Formik,
@@ -9,21 +9,20 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import add from '../Styles/FormAdd.css';
-import { ThemaApp } from './Application';
 import * as actions from '../actions/actions';
 import { Background, CustomForm } from '../UIComponents/UIFormAdd';
+import { IFormAdd, IDataPost } from './Interfaces/IFormAdd';
 
 const actionCreators = {
   addPost: actions.addPost,
 };
 
-export const FormAdd = (props) => {
+export const FormAdd = (props: IFormAdd) => {
   const { changeShowFormAdd } = props;
   const dispatch = useDispatch();
   const { addPost } = bindActionCreators(actionCreators, dispatch);
 
-  const themaApp = useContext(ThemaApp);
-  const addNewPost = ({ thema, text, userName }) => {
+  const addNewPost = ({ thema, text, userName }: IDataPost) => {
     const date = new Date();
     const newPost = {
       id: Number(uniqueId()) + Date.parse(String(date)),
@@ -41,7 +40,7 @@ export const FormAdd = (props) => {
 
   return (
     <>
-      <Background thema={themaApp} onClick={changeShowFormAdd} aria-hidden />
+      <Background onClick={changeShowFormAdd} aria-hidden />
       <Formik
         initialValues={{ thema: '', userName: '', text: '' }}
         validationSchema={yup.object({
@@ -54,7 +53,7 @@ export const FormAdd = (props) => {
         }}
       >
         {({ handleSubmit, handleReset }) => (
-          <CustomForm thema={themaApp} onReset={handleReset} onSubmit={handleSubmit}>
+          <CustomForm onReset={handleReset} onSubmit={handleSubmit}>
             <Field type="text" name="thema" placeholder="введите тему" />
             <ErrorMessage name="thema" component="p" className={add.error} />
             <Field type="text" name="userName" placeholder="введите имя пользователя" />

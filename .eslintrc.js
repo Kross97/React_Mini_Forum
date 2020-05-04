@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
   },
@@ -9,7 +9,7 @@ module.exports = {
     'react-hooks',
   ],
   extends: [
-    'airbnb',
+    'airbnb-typescript',
   ],
   rules: {
     "no-return-assign": 0,

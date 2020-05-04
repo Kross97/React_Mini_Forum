@@ -5,9 +5,9 @@ const cssnano = require('cssnano');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.jsx',
+  entry: './src/index.tsx',
   resolve: {
-    extensions: ['.js', '.css', '.jsx'],
+    extensions: ['.js', '.css', '.jsx', '.ts', '.tsx'],
   },
   output: {
     filename: 'main.js',
@@ -46,6 +46,11 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: ['babel-loader', 'ts-loader'],
       },
       {
         test: /\.(png|jpe?g)$/i,

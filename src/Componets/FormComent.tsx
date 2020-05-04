@@ -11,19 +11,20 @@ import uniqueId from 'lodash/uniqueId';
 import coment from '../Styles/FormComent.css';
 import * as actions from '../actions/actions';
 import { allPosts } from '../reducers';
+import { IFormComment, IDataComment } from './Interfaces/IFormComment';
 
 const actionCreators = {
   addNewComent: actions.addNewComent,
   updateOnePost: allPosts.actions.updateOnePost,
 };
 
-export const FormComent = (props) => {
+export const FormComent = (props: IFormComment) => {
   const { showFormComent, postId, comments } = props;
 
   const dispatch = useDispatch();
   const { addNewComent, updateOnePost } = bindActionCreators(actionCreators, dispatch);
 
-  const addComent = ({ userName, textComent }) => {
+  const addComent = ({ userName, textComent }: IDataComment) => {
     const date = new Date();
     const newComment = {
       id: Number(uniqueId()) + Date.parse(String(date)),
@@ -53,7 +54,7 @@ export const FormComent = (props) => {
         <Form className={coment.form}>
           <Field type="text" name="userName" placeholder="Введите имя пользователя" />
           <Field as="textarea" type="text" name="textComent" placeholder="Введите комментарий" />
-          {(errors.userName || errors.textComent) && <p style={{ color: 'red', 'font-size': '14px' }}>{errors.userName || errors.textComent}</p>}
+          {(errors.userName || errors.textComent) && <p style={{ color: 'red', fontSize: '14px' }}>{errors.userName || errors.textComent}</p>}
           <button type="submit">Добавить</button>
         </Form>
       )}

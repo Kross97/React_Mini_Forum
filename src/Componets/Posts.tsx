@@ -1,19 +1,18 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Post } from './Post';
-import { ThemaApp } from './Application';
 import * as actions from '../actions/actions';
 import { ContainerPosts } from '../UIComponents/UIPosts';
+import { IAppState } from '../IApplication';
 
 const actionCreators = {
   getAllPosts: actions.getAllPosts,
 };
 
 export const Posts = () => {
-  const allposts = useSelector(({ allPosts }) => allPosts.ids);
+  const allposts = useSelector(({ allPosts }: IAppState) => allPosts.ids);
 
-  const thema = useContext(ThemaApp);
   const dispatch = useDispatch();
   const { getAllPosts } = bindActionCreators(actionCreators, dispatch);
   useEffect(() => {
@@ -21,7 +20,7 @@ export const Posts = () => {
   }, []);
 
   return (
-    <ContainerPosts thema={thema}>
+    <ContainerPosts>
       {allposts.length !== 0 && allposts.map((postId) => (
         <Post key={postId} postId={postId} />
       ))}

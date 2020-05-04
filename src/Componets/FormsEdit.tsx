@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import {
   Formik,
@@ -6,9 +6,10 @@ import {
 } from 'formik';
 import * as yup from 'yup';
 import { bindActionCreators } from 'redux';
-import { ThemaApp } from './Application';
 import { allPosts, allUsers, allComments } from '../reducers';
 import { ContainerForms, CustomForm } from '../UIComponents/UIFormEdit';
+import { IAppState } from '../IApplication';
+import { IDataPost, IDataComment } from './Interfaces/IFromEdit';
 
 const actionCreators = {
   updateOnePost: allPosts.actions.updateOnePost,
@@ -24,36 +25,45 @@ export const FormsEdit = () => {
     updateOneComment,
   } = bindActionCreators(actionCreators, dispatch);
 
-  const themaApp = useContext(ThemaApp);
-  const postId = useSelector((state) => state.allPosts.currentPost);
-  const { currentPost, currentUser } = useSelector((state) => (
-    postId !== 0 ? {
+  const postId = useSelector((state: IAppState) => state.allPosts.currentPost);
+  const { currentPost, currentUser } = useSelector((state: IAppState) => {
+    const userId = state?.allPosts?.entities?.[postId]?.user;
+    const result = postId !== 0 ? {
       currentPost: state.allPosts.entities[postId],
-      currentUser: state.allUsers.entities[state.allPosts.entities[postId].user],
-    } : { currentPost: undefined, currentUser: undefined }), shallowEqual);
+      currentUser: state.allUsers.entities[userId as number],
+    } : { currentPost: undefined, currentUser: undefined };
+    return result;
+  }, shallowEqual);
 
-  const commentId = useSelector((state) => state.allComments.currentComment);
-  const { currentComment, currentUserComment } = useSelector((state) => (
-    commentId !== 0 ? {
+  const commentId = useSelector((state: IAppState) => state.allComments.currentComment);
+  const { currentComment, currentUserComment } = useSelector((state: IAppState) => {
+    const userId = state?.allComments?.entities?.[commentId]?.user;
+    const result = commentId !== 0 ? {
       currentComment: state.allComments.entities[commentId],
-      currentUserComment: state.allUsers.entities[state.allComments.entities[commentId].user],
-    } : { currentComment: undefined, currentUserComment: undefined }), shallowEqual);
+      currentUserComment: state.allUsers.entities[userId as number],
+    } : { currentComment: undefined, currentUserComment: undefined };
+    return result;
+  }, shallowEqual);
 
-  const changePost = ({ thema, text, userName }) => {
-    updateOnePost({ id: currentPost.id, changes: { thema, text } });
-    updateOneUser({ id: currentUser.id, changes: { name: userName } });
+  const changePost = ({ thema, text, userName }: IDataPost) => {
+    if (currentPost && currentUser) {
+      updateOnePost({ id: currentPost.id, changes: { thema, text } });
+      updateOneUser({ id: currentUser.id, changes: { name: userName } });
+    }
   };
 
-  const changeComment = ({ textComment, userNameComment }) => {
-    updateOneComment({ id: currentComment.id, changes: { text: textComment } });
-    updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
+  const changeComment = ({ textComment, userNameComment }: IDataComment) => {
+    if (currentUserComment && currentComment) {
+      updateOneComment({ id: currentComment.id, changes: { text: textComment } });
+      updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
+    }
   };
 
   return (
-    <ContainerForms thema={themaApp}>
+    <ContainerForms>
       <Formik
         key={postId}
-        initialValues={currentPost && postId !== 0
+        initialValues={currentPost && currentUser && postId !== 0
           ? { userName: currentUser.name, thema: currentPost.thema, text: currentPost.text }
           : { userName: '', thema: '', text: '' }}
         validationSchema={yup.object({
@@ -66,7 +76,7 @@ export const FormsEdit = () => {
         }}
       >
         {({ errors, handleSubmit }) => (
-          <CustomForm thema={themaApp} onSubmit={handleSubmit}>
+          <CustomForm onSubmit={handleSubmit}>
             <p>Форма для поста</p>
             <Field type="text" name="userName" />
             <Field type="text" name="thema" />
@@ -79,7 +89,7 @@ export const FormsEdit = () => {
       </Formik>
       <Formik
         key={`${commentId}comm`}
-        initialValues={currentComment && commentId !== 0
+        initialValues={currentComment && currentUserComment && commentId !== 0
           ? { userNameComment: currentUserComment.name, textComment: currentComment.text }
           : { userNameComment: '', textComment: '' }}
         validationSchema={yup.object({
@@ -91,7 +101,7 @@ export const FormsEdit = () => {
         }}
       >
         {({ errors, handleSubmit }) => (
-          <CustomForm thema={themaApp} onSubmit={handleSubmit}>
+          <CustomForm onSubmit={handleSubmit}>
             <p>Форма для комментария</p>
             <Field type="text" name="userNameComment" />
             <Field as="textarea" type="text" name="textComment" />

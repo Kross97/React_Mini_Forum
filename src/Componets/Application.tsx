@@ -1,17 +1,17 @@
 import React, { useState, useCallback } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { Posts } from './Posts';
 import { FormsEdit } from './FormsEdit';
 import { FormAdd } from './FormAdd';
 import { Navigation, ButtonAdd } from '../UIComponents/UIApplication';
 
-export const ThemaApp = React.createContext('dark');
-
 export const Application = () => {
   const [isShowFormAdd, setIsShowFormAdd] = useState(false);
   const [thema, setThema] = useState('dark');
   const changeShowFormAdd = useCallback(() => {
-    setIsShowFormAdd(!isShowFormAdd);
-  }, [isShowFormAdd]);
+    // eslint-disable-next-line
+    setIsShowFormAdd((isShowFormAdd) => !isShowFormAdd);
+  }, []);
 
   const changeThema = () => {
     const newThema = thema === 'dark' ? 'light' : 'dark';
@@ -20,15 +20,15 @@ export const Application = () => {
 
   return (
     <>
-      <ThemaApp.Provider value={thema}>
-        <Navigation thema={thema}>
-          <ButtonAdd thema={thema} onClick={changeShowFormAdd} type="button">Добавить пост</ButtonAdd>
-          <ButtonAdd thema={thema} onClick={changeThema} type="button">Сменить тему</ButtonAdd>
+      <ThemeProvider theme={{ thema }}>
+        <Navigation>
+          <ButtonAdd onClick={changeShowFormAdd} type="button">Добавить пост</ButtonAdd>
+          <ButtonAdd onClick={changeThema} type="button">Сменить тему</ButtonAdd>
         </Navigation>
         { isShowFormAdd && <FormAdd changeShowFormAdd={changeShowFormAdd} /> }
         <Posts />
         <FormsEdit />
-      </ThemaApp.Provider>
+      </ThemeProvider>
     </>
   );
 };

@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { allComments, allPosts } from '../reducers';
 import posts from '../Styles/Posts.css';
-import { ThemaApp } from './Application';
 import { User } from './User';
 import { CommentPost } from '../UIComponents/UIComment';
+import { IAppState } from '../IApplication';
+import { ICommentProps } from './Interfaces/IComment';
 
 const actionCreators = {
   removeComment: allComments.actions.removeOne,
@@ -13,7 +14,7 @@ const actionCreators = {
   setCurrentComment: allComments.actions.setCurrentComment,
 };
 
-export const Comment = React.memo((props) => {
+export const Comment = React.memo((props: ICommentProps) => {
   const { commId, postId, comments } = props;
 
   const dispatch = useDispatch();
@@ -23,29 +24,27 @@ export const Comment = React.memo((props) => {
     setCurrentComment,
   } = bindActionCreators(actionCreators, dispatch);
 
-  const thema = useContext(ThemaApp);
-
-  const commentForEdit = (e) => {
+  const commentForEdit = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setCurrentComment({ id: commId });
   };
 
-  const removeCurrentComent = (e) => {
+  const removeCurrentComent = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setCurrentComment({ id: 0 });
     removeComment(commId);
     updateOnePost(
-      { id: postId, changes: { comments: comments.filter((id) => id !== commId) } },
+      { id: postId, changes: { comments: comments.filter((id: number) => id !== commId) } },
     );
   };
 
-  const comment = useSelector((state) => state.allComments.entities[commId]);
+  const comment = useSelector((state: IAppState) => state.allComments.entities[commId]);
 
   return (
-    <CommentPost onClick={commentForEdit} thema={thema} aria-hidden>
+    <CommentPost onClick={commentForEdit} aria-hidden>
       <button className={posts.btnRemove} onClick={removeCurrentComent} aria-label="remove" type="button" />
-      <User idSource={comment.user} />
-      <span>{comment.text}</span>
+      <User idSource={comment?.user as number} />
+      <span>{comment?.text}</span>
     </CommentPost>
   );
 });
