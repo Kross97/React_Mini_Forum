@@ -20,8 +20,6 @@
   },
   "include": [
     "global.d.ts",
-    "globalYup.d.ts",
-    "globalStyled.d.ts",
     "src"
   ]
 }
