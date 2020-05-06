@@ -1,0 +1,25 @@
+export default {
+  base: {
+    changePost: 'Добавить пост',
+    changeThema: 'Сменить тему',
+  },
+  formEdit: {
+    titlePost: 'Форма для поста',
+    titleComment: 'Форма для комментария',
+    button: 'Изменить',
+  },
+  formAdd: {
+    titleThema: 'Введите тему',
+    titleUser: 'Введите имя пользователя',
+    titleText: 'Введите текст',
+    btnRest: 'Сбросить',
+    btnAdd: 'Добавить',
+  },
+  dataComment: {
+    addComment: 'Добавить комментарий',
+    showComment: 'Посмотреть комментарии',
+    btnAdd: 'Добавить',
+    titleUser: 'Введите имя пользователя',
+    titleText: 'Введите коментарий',
+  },
+};

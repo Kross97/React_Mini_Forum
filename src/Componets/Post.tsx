@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { useTranslation } from 'react-i18next';
 import posts from '../Styles/Posts.css';
 import { FormComent } from './FormComent';
 import { allComments, allPosts } from '../reducers';
@@ -26,6 +27,7 @@ export const Post = (props: IPostProps) => {
   const [lookComents, setShowLookComents] = useState(false);
   const { postId } = props;
 
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const {
     removePost,
@@ -70,8 +72,8 @@ export const Post = (props: IPostProps) => {
         <span>{post?.thema}</span>
       </div>
       <p>{post?.text}</p>
-      <CommentButton onClick={showFormComent} type="button">Добавить комментарий</CommentButton>
-      {post?.comments.length !== 0 && <CommentButton onClick={showLookComents} type="button">Посмотреть комментарий</CommentButton>}
+      <CommentButton onClick={showFormComent} type="button">{t('dataComment:addComment')}</CommentButton>
+      {post?.comments.length !== 0 && <CommentButton onClick={showLookComents} type="button">{t('dataComment:showComment')}</CommentButton>}
       {lookComents && post?.comments.map((commId) => (
         <Comment postId={post?.id} comments={post.comments} commId={commId} />
       ))}

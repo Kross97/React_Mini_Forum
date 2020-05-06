@@ -8,6 +8,7 @@ import {
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { useTranslation } from 'react-i18next';
 import add from '../Styles/FormAdd.css';
 import * as actions from '../actions/actions';
 import { Background, CustomForm } from '../UIComponents/UIFormAdd';
@@ -19,6 +20,8 @@ const actionCreators = {
 
 export const FormAdd = (props: IFormAdd) => {
   const { changeShowFormAdd } = props;
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { addPost } = bindActionCreators(actionCreators, dispatch);
 
@@ -54,14 +57,14 @@ export const FormAdd = (props: IFormAdd) => {
       >
         {({ handleSubmit, handleReset }) => (
           <CustomForm onReset={handleReset} onSubmit={handleSubmit}>
-            <Field type="text" name="thema" placeholder="введите тему" />
+            <Field type="text" name="thema" placeholder={t('formAdd:titleThema')} />
             <ErrorMessage name="thema" component="p" className={add.error} />
-            <Field type="text" name="userName" placeholder="введите имя пользователя" />
+            <Field type="text" name="userName" placeholder={t('formAdd:titleUser')} />
             <ErrorMessage name="userName" component="p" className={add.error} />
-            <Field as="textarea" name="text" placeholder="введите текст" />
+            <Field as="textarea" name="text" placeholder={t('formAdd:titleText')} />
             <ErrorMessage name="text" component="p" className={add.error} />
-            <button type="reset">Сбросить</button>
-            <button type="submit">Добавить</button>
+            <button type="reset">{t('formAdd:btnRest')}</button>
+            <button type="submit">{t('formAdd:btnAdd')}</button>
           </CustomForm>
         )}
       </Formik>

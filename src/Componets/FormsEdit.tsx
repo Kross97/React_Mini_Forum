@@ -5,6 +5,7 @@ import {
   Field,
 } from 'formik';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import { allPosts, allUsers, allComments } from '../reducers';
 import { ContainerForms, CustomForm } from '../UIComponents/UIFormEdit';
@@ -19,6 +20,7 @@ const actionCreators = {
 
 export const FormsEdit = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const {
     updateOnePost,
     updateOneUser,
@@ -77,13 +79,13 @@ export const FormsEdit = () => {
       >
         {({ errors, handleSubmit }) => (
           <CustomForm onSubmit={handleSubmit}>
-            <p>Форма для поста</p>
+            <p>{t('formEdit:titlePost')}</p>
             <Field type="text" name="userName" />
             <Field type="text" name="thema" />
             <Field as="textarea" type="text" name="text" />
             {(errors.userName || errors.thema || errors.text)
               && <span>{errors.userName || errors.thema || errors.text}</span>}
-            <button type="submit">Изменить</button>
+            <button type="submit">{t('formEdit:button')}</button>
           </CustomForm>
         )}
       </Formik>
@@ -102,12 +104,12 @@ export const FormsEdit = () => {
       >
         {({ errors, handleSubmit }) => (
           <CustomForm onSubmit={handleSubmit}>
-            <p>Форма для комментария</p>
+            <p>{t('formEdit:titleComment')}</p>
             <Field type="text" name="userNameComment" />
             <Field as="textarea" type="text" name="textComment" />
             {(errors.userNameComment || errors.textComment)
             && <span>{errors.userNameComment || errors.textComment}</span>}
-            <button type="submit">Изменить</button>
+            <button type="submit">{t('formEdit:button')}</button>
           </CustomForm>
         )}
       </Formik>

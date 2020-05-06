@@ -1,0 +1,25 @@
+export default {
+  base: {
+    changePost: 'Add post',
+    changeThema: 'Change thema',
+  },
+  formEdit: {
+    titlePost: 'Form for the post',
+    titleComment: 'Form for the comment',
+    button: 'To change',
+  },
+  formAdd: {
+    titleThema: 'Enter a subject',
+    titleUser: 'Enter a user name',
+    titleText: 'Enter a text',
+    btnRest: 'Reset',
+    btnAdd: 'Add',
+  },
+  dataComment: {
+    addComment: 'Add comment',
+    showComment: 'Look comment',
+    btnAdd: 'Add',
+    titleUser: 'Enter a user name',
+    titleText: 'Enter a comment',
+  },
+};

@@ -19,3 +19,16 @@ export const ButtonAdd = styled.button`
    background-color: ${(props: IPropsUI) => (props.theme.thema === 'dark' ? '#306a9d' : '#66a4e1')};
   }
 `;
+
+export const SelectLanguage = styled.select`
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: 60px;
+  height: 40px;
+  font-size: 20px;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  color: ${(props: IPropsUI) => (props.theme.thema === 'dark' ? '#fff' : 'black')};
+`;

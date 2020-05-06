@@ -7,6 +7,7 @@ import {
   Form,
 } from 'formik';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import uniqueId from 'lodash/uniqueId';
 import coment from '../Styles/FormComent.css';
 import * as actions from '../actions/actions';
@@ -20,6 +21,7 @@ const actionCreators = {
 
 export const FormComent = (props: IFormComment) => {
   const { showFormComent, postId, comments } = props;
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const { addNewComent, updateOnePost } = bindActionCreators(actionCreators, dispatch);
@@ -52,10 +54,10 @@ export const FormComent = (props: IFormComment) => {
     >
       {({ errors }) => (
         <Form className={coment.form}>
-          <Field type="text" name="userName" placeholder="Введите имя пользователя" />
-          <Field as="textarea" type="text" name="textComent" placeholder="Введите комментарий" />
+          <Field type="text" name="userName" placeholder={t('dataComment:titleUser')} />
+          <Field as="textarea" type="text" name="textComent" placeholder={t('dataComment:titleText')} />
           {(errors.userName || errors.textComent) && <p style={{ color: 'red', fontSize: '14px' }}>{errors.userName || errors.textComent}</p>}
-          <button type="submit">Добавить</button>
+          <button type="submit">{t('dataComment:btnAdd')}</button>
         </Form>
       )}
     </Formik>
