@@ -43,6 +43,8 @@
     "formik": "^2.1.4",
     "html-webpack-plugin": "^4.2.0",
     "i18next": "^19.4.4",
+    "i18next-browser-languagedetector": "^4.1.1",
+    "i18next-http-backend": "^1.0.8",
     "image-webpack-loader": "^6.0.0",
     "lodash": "^4.17.15",
     "normalizr": "^3.6.0",
