@@ -39,6 +39,9 @@ i18next
     //  en,
     //    uk,
     // },
+    react: {
+      useSuspense: false,
+    },
     detection: options,
     backend: {
       loadPath: './locales/{{lng}}/{{ns}}.json',

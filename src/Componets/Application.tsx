@@ -23,14 +23,15 @@ export const Application = () => {
   const changeLanguage = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(target.value);
   };
-  console.log(i18n);
-  console.log(i18n.language);
+  console.log('18N', i18n);
+  console.log('LANG', i18n.language);
+
   return (
     <>
       <ThemeProvider theme={{ thema }}>
         <Navigation>
           <ButtonAdd onClick={changeShowFormAdd} type="button">{t('base.changePost')}</ButtonAdd>
-          <ButtonAdd onClick={changeThema} type="button">{t('base.changeThema')}</ButtonAdd>
+          <ButtonAdd onClick={changeThema} type="button">{t('changeThema')}</ButtonAdd>
         </Navigation>
         { isShowFormAdd && <FormAdd changeShowFormAdd={changeShowFormAdd} /> }
         <Posts />
