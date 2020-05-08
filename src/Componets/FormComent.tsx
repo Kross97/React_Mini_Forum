@@ -54,10 +54,10 @@ export const FormComent = (props: IFormComment) => {
     >
       {({ errors }) => (
         <Form className={coment.form}>
-          <Field type="text" name="userName" placeholder={t('dataComment:titleUser')} />
-          <Field as="textarea" type="text" name="textComent" placeholder={t('dataComment:titleText')} />
+          <Field type="text" name="userName" placeholder={t('dataComment.titleUser')} />
+          <Field as="textarea" type="text" name="textComent" placeholder={t('dataComment.titleText')} />
           {(errors.userName || errors.textComent) && <p style={{ color: 'red', fontSize: '14px' }}>{errors.userName || errors.textComent}</p>}
-          <button type="submit">{t('dataComment:btnAdd')}</button>
+          <button type="submit">{t('dataComment.btnAdd')}</button>
         </Form>
       )}
     </Formik>

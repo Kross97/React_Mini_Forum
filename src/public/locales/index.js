@@ -28,7 +28,7 @@ i18next
   .use(languageDetector)
   .use(httpApi)
   .init({
-    lng: 'ru',
+    // lng: 'ru',
     //  whitelist: ['ru', 'uk', 'en', 'dev'],
     debug: true,
     fallbackLng: 'ru',
@@ -43,9 +43,8 @@ i18next
       useSuspense: false,
     },
     detection: options,
-    // './{{lng}}/{{ns}}.json' так тоже не работает
     backend: {
-      loadPath: './locales/{{lng}}/{{ns}}.json',
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
   });
 

@@ -2,6 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
@@ -11,6 +13,7 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
+    // publicPath: '/src',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
@@ -20,8 +23,11 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: MiniCssExtractPlugin.loader,
           },
+          // {
+          // loader: 'style-loader',
+          // },
           {
             loader: 'css-loader',
             options: {
@@ -78,10 +84,13 @@ module.exports = {
   },
   devServer: {
     stats: 'errors-only',
+    contentBase: path.join(__dirname, 'src/public'),
   },
   plugins: [
+    new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new CopyWebpackPlugin([{ from: 'src/public/', to: 'public/' }]),
   ],
 };

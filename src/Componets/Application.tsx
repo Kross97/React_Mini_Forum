@@ -23,23 +23,21 @@ export const Application = () => {
   const changeLanguage = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(target.value);
   };
-  console.log('18N', i18n);
-  console.log('LANG', i18n.language);
 
   return (
     <>
       <ThemeProvider theme={{ thema }}>
         <Navigation>
           <ButtonAdd onClick={changeShowFormAdd} type="button">{t('base.changePost')}</ButtonAdd>
-          <ButtonAdd onClick={changeThema} type="button">{t('changeThema')}</ButtonAdd>
+          <ButtonAdd onClick={changeThema} type="button">{t('base.changeThema')}</ButtonAdd>
         </Navigation>
         { isShowFormAdd && <FormAdd changeShowFormAdd={changeShowFormAdd} /> }
         <Posts />
         <FormsEdit />
         <SelectLanguage onChange={changeLanguage}>
-          <option selected value="ru">RU</option>
-          <option value="en">EN</option>
-          <option value="uk">UE</option>
+          <option selected={i18n.language === 'ru'} value="ru">RU</option>
+          <option selected={i18n.language === 'en'} value="en">EN</option>
+          <option selected={i18n.language === 'uk'} value="uk">UE</option>
         </SelectLanguage>
       </ThemeProvider>
     </>

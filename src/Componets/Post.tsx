@@ -72,8 +72,8 @@ export const Post = (props: IPostProps) => {
         <span>{post?.thema}</span>
       </div>
       <p>{post?.text}</p>
-      <CommentButton onClick={showFormComent} type="button">{t('dataComment:addComment')}</CommentButton>
-      {post?.comments.length !== 0 && <CommentButton onClick={showLookComents} type="button">{t('dataComment:showComment')}</CommentButton>}
+      <CommentButton onClick={showFormComent} type="button">{t('dataComment.addComment')}</CommentButton>
+      {post?.comments.length !== 0 && <CommentButton onClick={showLookComents} type="button">{t('dataComment.showComment')}</CommentButton>}
       {lookComents && post?.comments.map((commId) => (
         <Comment postId={post?.id} comments={post.comments} commId={commId} />
       ))}

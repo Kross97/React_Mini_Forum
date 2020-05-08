@@ -57,14 +57,14 @@ export const FormAdd = (props: IFormAdd) => {
       >
         {({ handleSubmit, handleReset }) => (
           <CustomForm onReset={handleReset} onSubmit={handleSubmit}>
-            <Field type="text" name="thema" placeholder={t('formAdd:titleThema')} />
+            <Field type="text" name="thema" placeholder={t('formAdd.titleThema')} />
             <ErrorMessage name="thema" component="p" className={add.error} />
-            <Field type="text" name="userName" placeholder={t('formAdd:titleUser')} />
+            <Field type="text" name="userName" placeholder={t('formAdd.titleUser')} />
             <ErrorMessage name="userName" component="p" className={add.error} />
-            <Field as="textarea" name="text" placeholder={t('formAdd:titleText')} />
+            <Field as="textarea" name="text" placeholder={t('formAdd.titleText')} />
             <ErrorMessage name="text" component="p" className={add.error} />
-            <button type="reset">{t('formAdd:btnRest')}</button>
-            <button type="submit">{t('formAdd:btnAdd')}</button>
+            <button type="reset">{t('formAdd.btnRest')}</button>
+            <button type="submit">{t('formAdd.btnAdd')}</button>
           </CustomForm>
         )}
       </Formik>

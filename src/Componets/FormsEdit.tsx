@@ -79,13 +79,13 @@ export const FormsEdit = () => {
       >
         {({ errors, handleSubmit }) => (
           <CustomForm onSubmit={handleSubmit}>
-            <p>{t('formEdit:titlePost')}</p>
+            <p>{t('formEdit.titlePost')}</p>
             <Field type="text" name="userName" />
             <Field type="text" name="thema" />
             <Field as="textarea" type="text" name="text" />
             {(errors.userName || errors.thema || errors.text)
               && <span>{errors.userName || errors.thema || errors.text}</span>}
-            <button type="submit">{t('formEdit:button')}</button>
+            <button type="submit">{t('formEdit.button')}</button>
           </CustomForm>
         )}
       </Formik>
@@ -104,12 +104,12 @@ export const FormsEdit = () => {
       >
         {({ errors, handleSubmit }) => (
           <CustomForm onSubmit={handleSubmit}>
-            <p>{t('formEdit:titleComment')}</p>
+            <p>{t('formEdit.titleComment')}</p>
             <Field type="text" name="userNameComment" />
             <Field as="textarea" type="text" name="textComment" />
             {(errors.userNameComment || errors.textComment)
             && <span>{errors.userNameComment || errors.textComment}</span>}
-            <button type="submit">{t('formEdit:button')}</button>
+            <button type="submit">{t('formEdit.button')}</button>
           </CustomForm>
         )}
       </Formik>

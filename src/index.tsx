@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { enableBatching } from 'redux-batched-actions';
 import { Application } from './Componets/Application';
 import reducer from './reducers';
-import './locales';
+import './public/locales';
 
 export const store = configureStore({
   reducer: enableBatching(reducer),
