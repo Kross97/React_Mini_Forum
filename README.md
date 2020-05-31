@@ -1,5 +1,13 @@
 # Mini_Forum
-(Технологии: 1.@reduxjs/toolkit(createEntityAdapter), 2.normalizr.js, 3.Formik, 4.Yup, 5.styled-components, 6. i18next, 7. redux-persist, 8.redux-batched-actions )
+(Технологии:
+1.@reduxjs/toolkit(createEntityAdapter),
+2.normalizr.js,
+3.Formik,
+4.Yup,
+5.styled-components,
+6.i18next,
+7.redux-persist,
+8.redux-batched-actions )
 
 1 шаг запускаем сервер из ярлыка Server_Start
 
