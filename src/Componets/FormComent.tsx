@@ -9,6 +9,7 @@ import {
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import uniqueId from 'lodash/uniqueId';
+import now from 'lodash/now';
 import coment from '../Styles/FormComent.css';
 import * as actions from '../actions/actions';
 import { allPosts } from '../reducers';
@@ -27,12 +28,11 @@ export const FormComent = (props: IFormComment) => {
   const { addNewComent, updateOnePost } = bindActionCreators(actionCreators, dispatch);
 
   const addComent = ({ userName, textComent }: IDataComment) => {
-    const date = new Date();
     const newComment = {
-      id: Number(uniqueId()) + Date.parse(String(date)),
+      id: Number(uniqueId()) + now(),
       text: textComent,
       user: {
-        id: Number(uniqueId()) + Date.parse(String(date)),
+        id: Number(uniqueId()) + now(),
         name: userName,
       },
     };

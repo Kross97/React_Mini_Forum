@@ -7,11 +7,13 @@ import { User } from './User';
 import { CommentPost } from '../UIComponents/UIComment';
 import { IAppState } from '../IApplication';
 import { ICommentProps } from './Interfaces/IComment';
+import * as actions from '../actions/actions';
 
 const actionCreators = {
   removeComment: allComments.actions.removeOne,
   updateOnePost: allPosts.actions.updateOnePost,
   setCurrentComment: allComments.actions.setCurrentComment,
+  removeCommentOnServer: actions.removeComment,
 };
 
 export const Comment = React.memo((props: ICommentProps) => {
@@ -22,6 +24,7 @@ export const Comment = React.memo((props: ICommentProps) => {
     removeComment,
     updateOnePost,
     setCurrentComment,
+    removeCommentOnServer,
   } = bindActionCreators(actionCreators, dispatch);
 
   const commentForEdit = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,6 +39,7 @@ export const Comment = React.memo((props: ICommentProps) => {
     updateOnePost(
       { id: postId, changes: { comments: comments.filter((id: number) => id !== commId) } },
     );
+    removeCommentOnServer(commId);
   };
 
   const comment = useSelector((state: IAppState) => state.allComments.entities[commId]);

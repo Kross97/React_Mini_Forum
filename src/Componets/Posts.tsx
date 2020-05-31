@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Post } from './Post';
 import * as actions from '../actions/actions';
@@ -11,17 +11,20 @@ const actionCreators = {
 };
 
 export const Posts = () => {
-  const allposts = useSelector(({ allPosts }: IAppState) => allPosts.ids);
+  const { postIds, usersIds } = useSelector(({ allPosts, allUsers }: IAppState) => ({
+    postIds: allPosts.ids,
+    usersIds: allUsers.ids,
+  }), shallowEqual);
 
   const dispatch = useDispatch();
   const { getAllPosts } = bindActionCreators(actionCreators, dispatch);
   useEffect(() => {
-    getAllPosts();
-  }, []);
+    setTimeout(getAllPosts, 300);
+  }, [usersIds.length]);
 
   return (
     <ContainerPosts>
-      {allposts.length !== 0 && allposts.map((postId) => (
+      {postIds.length !== 0 && postIds.map((postId) => (
         <Post key={postId} postId={postId} />
       ))}
     </ContainerPosts>

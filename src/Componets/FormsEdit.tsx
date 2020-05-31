@@ -11,11 +11,16 @@ import { allPosts, allUsers, allComments } from '../reducers';
 import { ContainerForms, CustomForm } from '../UIComponents/UIFormEdit';
 import { IAppState } from '../IApplication';
 import { IDataPost, IDataComment } from './Interfaces/IFromEdit';
+import * as actions from '../actions/actions';
 
 const actionCreators = {
   updateOnePost: allPosts.actions.updateOnePost,
   updateOneUser: allUsers.actions.updateOneUser,
   updateOneComment: allComments.actions.updateOneComment,
+  patchDataPost: actions.patchDataPost,
+  patchDataComment: actions.patchDataComment,
+  setCurrentPost: allPosts.actions.setCurrentPost,
+  setCurrentComment: allComments.actions.setCurrentComment,
 };
 
 export const FormsEdit = () => {
@@ -25,6 +30,10 @@ export const FormsEdit = () => {
     updateOnePost,
     updateOneUser,
     updateOneComment,
+    patchDataPost,
+    patchDataComment,
+    setCurrentPost,
+    setCurrentComment,
   } = bindActionCreators(actionCreators, dispatch);
 
   const postId = useSelector((state: IAppState) => state.allPosts.currentPost);
@@ -51,14 +60,25 @@ export const FormsEdit = () => {
     if (currentPost && currentUser) {
       updateOnePost({ id: currentPost.id, changes: { thema, text } });
       updateOneUser({ id: currentUser.id, changes: { name: userName } });
+      patchDataPost(currentPost.id, {
+        thema,
+        text,
+        user: { name: userName },
+      });
     }
+    setCurrentPost({ id: 0 });
   };
 
   const changeComment = ({ textComment, userNameComment }: IDataComment) => {
     if (currentUserComment && currentComment) {
       updateOneComment({ id: currentComment.id, changes: { text: textComment } });
       updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
+      patchDataComment(currentComment.id, {
+        text: textComment,
+        user: { name: userNameComment },
+      });
     }
+    setCurrentComment({ id: 0 });
   };
 
   return (

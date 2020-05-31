@@ -1,10 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import { ThemeProvider } from 'styled-components';
+import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
+import app from '../Styles/App.css';
 import { Posts } from './Posts';
 import { FormsEdit } from './FormsEdit';
 import { FormAdd } from './FormAdd';
-import { Navigation, ButtonAdd, SelectLanguage } from '../UIComponents/UIApplication';
+import { Navigation, ButtonAdd } from '../UIComponents/UIApplication';
+
+const options = [
+  { value: 'ru', label: 'RU' },
+  { value: 'en', label: 'EN' },
+  { value: 'uk', label: 'UK' },
+];
 
 export const Application = () => {
   const [isShowFormAdd, setIsShowFormAdd] = useState(false);
@@ -20,8 +28,8 @@ export const Application = () => {
     setThema(newThema);
   };
 
-  const changeLanguage = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    i18n.changeLanguage(target.value);
+  const changeLanguage = (option: any) => {
+    i18n.changeLanguage(option.value);
   };
 
   return (
@@ -31,14 +39,20 @@ export const Application = () => {
           <ButtonAdd onClick={changeShowFormAdd} type="button">{t('base.changePost')}</ButtonAdd>
           <ButtonAdd onClick={changeThema} type="button">{t('base.changeThema')}</ButtonAdd>
         </Navigation>
-        { isShowFormAdd && <FormAdd changeShowFormAdd={changeShowFormAdd} /> }
+        { isShowFormAdd && (
+          <FormAdd
+            isShowFormAdd={isShowFormAdd}
+            changeShowFormAdd={changeShowFormAdd}
+          />
+        )}
         <Posts />
         <FormsEdit />
-        <SelectLanguage onChange={changeLanguage}>
-          <option selected={i18n.language === 'ru'} value="ru">RU</option>
-          <option selected={i18n.language === 'en'} value="en">EN</option>
-          <option selected={i18n.language === 'uk'} value="uk">UE</option>
-        </SelectLanguage>
+        <Select
+          id={app.select}
+          defaultValue={options[0]}
+          options={options}
+          onChange={changeLanguage}
+        />
       </ThemeProvider>
     </>
   );

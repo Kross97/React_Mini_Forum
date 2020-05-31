@@ -1,5 +1,6 @@
 export interface IFormAdd {
   changeShowFormAdd(): void;
+  isShowFormAdd: boolean;
 }
 
 export interface IDataPost {

@@ -1,5 +1,6 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import now from 'lodash/now';
 import {
   Formik,
   Field,
@@ -26,13 +27,12 @@ export const FormAdd = (props: IFormAdd) => {
   const { addPost } = bindActionCreators(actionCreators, dispatch);
 
   const addNewPost = ({ thema, text, userName }: IDataPost) => {
-    const date = new Date();
     const newPost = {
-      id: Number(uniqueId()) + Date.parse(String(date)),
+      id: Number(uniqueId()) + now(),
       thema,
       text,
       user: {
-        id: Number(uniqueId()) + Date.parse(String(date)),
+        id: Number(uniqueId()) + now(),
         name: userName,
       },
       comments: [],

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { IPropsUI } from './IUIInterfaces';
 
 export const Navigation = styled.nav`
@@ -20,15 +20,8 @@ export const ButtonAdd = styled.button`
   }
 `;
 
-export const SelectLanguage = styled.select`
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  width: 60px;
-  height: 40px;
-  font-size: 20px;
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
+export const ColorStyle = createGlobalStyle`
+body {
   color: ${(props: IPropsUI) => (props.theme.thema === 'dark' ? '#fff' : 'black')};
+}
 `;

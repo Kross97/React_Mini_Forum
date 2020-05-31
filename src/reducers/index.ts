@@ -18,6 +18,7 @@ export const allPosts = createSlice({
     },
     updateOnePost: postsAdapter.updateOne,
     removeOne: postsAdapter.removeOne,
+    setAllPosts: postsAdapter.setAll,
   },
 });
 
@@ -30,6 +31,7 @@ export const allUsers = createSlice({
     add: usersAdapter.addOne,
     addMany: usersAdapter.addMany,
     updateOneUser: usersAdapter.updateOne,
+    setAllUsers: usersAdapter.setAll,
   },
 });
 
@@ -46,6 +48,7 @@ export const allComments = createSlice({
     updateOneComment: commentsAdapter.updateOne,
     removeOne: commentsAdapter.removeOne,
     removeMany: commentsAdapter.removeMany,
+    setAllComments: commentsAdapter.setAll,
     setCurrentComment: (state, action) => {
       const { id } = action.payload;
       state.currentComment = id;

@@ -84,6 +84,7 @@ module.exports = {
   },
   devServer: {
     stats: 'errors-only',
+    port: 7777,
     contentBase: path.join(__dirname, 'src/public'),
   },
   plugins: [

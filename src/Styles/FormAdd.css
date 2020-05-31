@@ -2,3 +2,51 @@
  color: red;
  margin: 0;
 }
+
+.p {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 80px;
+  background: red;
+  z-index: 5;
+}
+
+.enter {
+  opacity: 1;
+  background-color: orange;
+  transform: scale(0.2);
+}
+
+.enterActive {
+  opacity: 1;
+  transform: translateX(160px) rotate(250deg);
+  transition: opacity 300ms, transform 800ms;
+}
+
+.enterDone {
+  background-color: #24cce8;
+  width: 400px;
+  height: 400px;
+  transform: rotate(250deg) scaleX(0.5);
+  transition: transform 1600ms;
+}
+
+.exit{
+  opacity: 1;
+  background-color: green;
+}
+
+.exitActive {
+  opacity: 0;
+  transform: scale(0.5) scaleX(-1);
+  transition: opacity 1300ms, transform 1800ms;
+}
+
+.exitDone {
+  background-color: #ff19d0;
+  transform: translateX(660px);
+  transition: transform 600ms;
+  width: 300px;
+  height: 300px;
+}
