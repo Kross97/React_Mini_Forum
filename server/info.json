@@ -1,0 +1,50 @@
+{
+  "posts": [
+    {
+      "id": 1588014304001,
+      "thema": "ремонт ходовой",
+      "text": "\\*данные о ремонте*/",
+      "user": {
+        "id": 1588014304002,
+        "name": "Василий"
+      },
+      "comments": [
+        {
+          "id": 1588014569001,
+          "text": "хорошая информация!!",
+          "user": {
+            "id": 1588014569002,
+            "name": "Роман"
+          }
+        },
+        {
+          "id": 1588617447001,
+          "text": "asdasdasd",
+          "user": {
+            "id": 1588617447002,
+            "name": "dddasdasd"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1588014624003,
+      "thema": "normalizr для данных",
+      "text": "https://github.com/paularmstrong/normalizr/blob/master/docs/api.md#objectdefinition",
+      "user": {
+        "id": 1588014624004,
+        "name": "Николай"
+      },
+      "comments": [
+        {
+          "id": 1588014670005,
+          "text": "подробное информаци о API!!!",
+          "user": {
+            "id": 1588014670006,
+            "name": "Юрий"
+          }
+        }
+      ]
+    }
+  ]
+}
