@@ -1,6 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, combineReducers, createEntityAdapter } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  combineReducers,
+  createEntityAdapter,
+} from '@reduxjs/toolkit';
 import { IPost, IComment, IUser } from './IReducers';
+
 
 const postsAdapter = createEntityAdapter<IPost>();
 
@@ -55,6 +60,7 @@ export const allComments = createSlice({
     },
   },
 });
+
 
 export default combineReducers({
   allPosts: allPosts.reducer,

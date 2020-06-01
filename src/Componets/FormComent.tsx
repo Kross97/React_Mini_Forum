@@ -36,7 +36,7 @@ export const FormComent = (props: IFormComment) => {
         name: userName,
       },
     };
-    addNewComent(postId, newComment);
+    addNewComent({ postId, newComment });
     updateOnePost({ id: postId, changes: { comments: [newComment.id, ...comments] } });
     showFormComent();
   };

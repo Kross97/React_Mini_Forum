@@ -1,11 +1,11 @@
-import { ThunkAction } from 'redux-thunk';
-import { Action } from '@reduxjs/toolkit';
-import { IAppState } from '../IApplication';
-import { store } from '../index';
+// import { ThunkAction } from 'redux-thunk';
+// import { Action } from '@reduxjs/toolkit';
+// import { IAppState } from '../IApplication';
+// import { store } from '../index';
 
-export type StoreDispatch = typeof store.dispatch;
+// export type StoreDispatch = typeof store.dispatch;
 
-export type AppThunk = ThunkAction<void, IAppState, unknown, Action<null>>;
+// export type AppThunk = ThunkAction<void, IAppState, unknown, Action<null>>;
 
 export interface IUser {
   id: number,

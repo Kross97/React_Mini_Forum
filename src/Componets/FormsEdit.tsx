@@ -60,10 +60,13 @@ export const FormsEdit = () => {
     if (currentPost && currentUser) {
       updateOnePost({ id: currentPost.id, changes: { thema, text } });
       updateOneUser({ id: currentUser.id, changes: { name: userName } });
-      patchDataPost(currentPost.id, {
-        thema,
-        text,
-        user: { name: userName },
+      patchDataPost({
+        id: currentPost.id,
+        postPatch: {
+          thema,
+          text,
+          user: { name: userName },
+        },
       });
     }
     setCurrentPost({ id: 0 });
@@ -73,9 +76,12 @@ export const FormsEdit = () => {
     if (currentUserComment && currentComment) {
       updateOneComment({ id: currentComment.id, changes: { text: textComment } });
       updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
-      patchDataComment(currentComment.id, {
-        text: textComment,
-        user: { name: userNameComment },
+      patchDataComment({
+        id: currentComment.id,
+        commentPatch: {
+          text: textComment,
+          user: { name: userNameComment },
+        },
       });
     }
     setCurrentComment({ id: 0 });

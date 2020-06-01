@@ -1,13 +1,9 @@
 import axios from 'axios';
 import { normalize, schema } from 'normalizr';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { batchActions } from 'redux-batched-actions';
 import { allPosts, allUsers, allComments } from '../reducers';
-import {
-  StoreDispatch,
-  AppThunk,
-  IPostForServer,
-  IComment,
-} from './IActions';
+import { IPostForServer } from './IActions';
 
 const userSchema = new schema.Entity('users');
 
@@ -22,8 +18,9 @@ const postsSchema = new schema.Entity(
 );
 
 
-export const getAllPosts = (): AppThunk => async (dispatch: StoreDispatch) => {
-  try {
+export const getAllPosts = createAsyncThunk(
+  'getAllPosts/',
+  async (_: any, { dispatch }) => {
     const response = await axios.get('https://localhost:44303/api/posts');
     const data = normalize(response.data, [postsSchema]);
     console.log('Данные с локального сервера:', data);
@@ -36,75 +33,65 @@ export const getAllPosts = (): AppThunk => async (dispatch: StoreDispatch) => {
         ]),
       );
     }
-  } catch (e) {
-    // console.log('ERROR!!!', e);
-  }
-};
+  },
+);
 
-export const addPost = (newPost: IPostForServer): AppThunk => async (dispatch: StoreDispatch) => {
-  try {
+export const addPost = createAsyncThunk(
+  'addPost/',
+  async (newPost: IPostForServer, { dispatch }) => {
     const data = normalize(newPost, postsSchema);
     dispatch(allUsers.actions.add(data.entities.users?.[newPost.user.id]));
     dispatch(allPosts.actions.add(data.entities.posts?.[newPost.id]));
     await axios.post('https://localhost:44303/api/posts', newPost);
-  } catch (e) {
-    // console.log(e);
-  }
-};
+  },
+);
 
+export const patchDataPost = createAsyncThunk(
+  'patchDataPost/',
+  async (dataPost: any) => {
+    await axios.patch(`https://localhost:44303/api/posts/${dataPost.id}`, dataPost.postPatch);
+  },
+);
 
-export const patchDataPost = (id: number, postPatch: any): AppThunk => async () => {
-  try {
-    await axios.patch(`https://localhost:44303/api/posts/${id}`, postPatch);
-  } catch (e) {
-    // console.log(e);
-  }
-};
+export const patchDataComment = createAsyncThunk(
+  'patchDataComment/',
+  async (dataComment: any) => {
+    await axios.patch(`https://localhost:44303/api/posts/patchcomment/${dataComment.id}`, dataComment.commentPatch);
+  },
+);
 
-export const patchDataComment = (id: number, commentPatch: any): AppThunk => async () => {
-  try {
-    await axios.patch(`https://localhost:44303/api/posts/patchcomment/${id}`, commentPatch);
-  } catch (e) {
-    // console.log(e);
-  }
-};
-
-
-export const removeComment = (id: number): AppThunk => async () => {
-  try {
+export const removeComment = createAsyncThunk(
+  'comments/Remove/',
+  async (id: number) => {
     await axios.delete(`https://localhost:44303/api/posts/deletecomment/${id}`);
-  } catch (e) {
-    // console.log(e);
-  }
-};
+  },
+);
 
-export const addNewComent = (
-  idPost: number,
-  newComment: IComment,
-): AppThunk => async (dispatch: StoreDispatch) => {
-  try {
-    const data = normalize(newComment, commentsSchema);
-    dispatch(allComments.actions.add(data.entities.comments?.[newComment.id]));
-    dispatch(allUsers.actions.add(data.entities.users?.[newComment.user.id]));
-    await axios.post(`https://localhost:44303/api/posts/createcomment/${idPost}`, newComment);
-  } catch (e) {
-    // console.log(e);
-  }
-};
-
-export const removePost = (
-  postId: number | string,
-  comments: number[],
-): AppThunk => async (dispatch: StoreDispatch) => {
-  try {
+export const addNewComent = createAsyncThunk(
+  'comments/Add/',
+  async (dataComment: any, { dispatch }) => {
+    const data = normalize(dataComment.newComment, commentsSchema);
+    const comment = data.entities.comments?.[dataComment.newComment.id];
+    const user = data.entities.users?.[dataComment.newComment.user.id];
     dispatch(
       batchActions([
-        allPosts.actions.removeOne(postId),
-        allComments.actions.removeMany(comments),
+        allUsers.actions.add(user),
+        allComments.actions.add(comment),
       ]),
     );
-    await axios.delete(`https://localhost:44303/api/posts/${postId}`);
-  } catch (e) {
-    // console.log(e);
-  }
-};
+    await axios.post(`https://localhost:44303/api/posts/createcomment/${dataComment.postId}`, dataComment.newComment);
+  },
+);
+
+export const removePost = createAsyncThunk(
+  'removePost/',
+  async (dataPost: any, { dispatch }) => {
+    dispatch(
+      batchActions([
+        allPosts.actions.removeOne(dataPost.postId),
+        allComments.actions.removeMany(dataPost.comments),
+      ]),
+    );
+    await axios.delete(`https://localhost:44303/api/posts/${dataPost.postId}`);
+  },
+);

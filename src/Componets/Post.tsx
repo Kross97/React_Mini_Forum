@@ -58,7 +58,7 @@ export const Post = (props: IPostProps) => {
     const comments = post == undefined ? [] : post.comments;
     setCurrentPost({ id: 0 });
     setCurrentComment({ id: 0 });
-    removePost(postId, comments);
+    removePost({ postId, comments });
   };
 
   // способ через reselect
