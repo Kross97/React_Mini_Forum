@@ -1,6 +1,6 @@
 # Mini_Forum
 (Технологии:
-1.@reduxjs/toolkit(createEntityAdapter),
+1.@reduxjs/toolkit(createEntityAdapter, createAsyncThunk),
 2.normalizr.js,
 3.Formik,
 4.Yup,
