@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,8 @@ export const Application = () => {
     i18n.changeLanguage(option.value);
   };
 
+  const defaultValueSelect = options.find((op) => op.value == i18n.language);
+
   return (
     <>
       <ThemeProvider theme={{ thema }}>
@@ -47,12 +49,14 @@ export const Application = () => {
         )}
         <Posts />
         <FormsEdit />
-        <Select
-          id={app.select}
-          defaultValue={options[0]}
-          options={options}
-          onChange={changeLanguage}
-        />
+        {defaultValueSelect && (
+          <Select
+            id={app.select}
+            defaultValue={defaultValueSelect}
+            options={options}
+            onChange={changeLanguage}
+          />
+        )}
       </ThemeProvider>
     </>
   );
