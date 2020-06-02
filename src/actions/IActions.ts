@@ -25,3 +25,26 @@ export interface IPostForServer {
   user: IUser,
   comments: IComment[],
 }
+
+export interface IDataPost {
+  id: number,
+  idUser: number,
+  postPatch: {
+    thema: string,
+    text: string,
+    user: {
+      name: string,
+    },
+  },
+}
+
+export interface IDataComment {
+  id: number,
+  idUser: number,
+  commentPatch: {
+    text: string,
+    user: {
+      name: string,
+    },
+  },
+}

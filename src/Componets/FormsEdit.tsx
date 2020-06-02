@@ -7,16 +7,13 @@ import {
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
-import { allPosts, allUsers, allComments } from '../reducers';
+import { allPosts, allComments } from '../reducers';
 import { ContainerForms, CustomForm } from '../UIComponents/UIFormEdit';
 import { IAppState } from '../IApplication';
 import { IDataPost, IDataComment } from './Interfaces/IFromEdit';
 import * as actions from '../actions/actions';
 
 const actionCreators = {
-  updateOnePost: allPosts.actions.updateOnePost,
-  updateOneUser: allUsers.actions.updateOneUser,
-  updateOneComment: allComments.actions.updateOneComment,
   patchDataPost: actions.patchDataPost,
   patchDataComment: actions.patchDataComment,
   setCurrentPost: allPosts.actions.setCurrentPost,
@@ -27,9 +24,6 @@ export const FormsEdit = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const {
-    updateOnePost,
-    updateOneUser,
-    updateOneComment,
     patchDataPost,
     patchDataComment,
     setCurrentPost,
@@ -58,10 +52,9 @@ export const FormsEdit = () => {
 
   const changePost = ({ thema, text, userName }: IDataPost) => {
     if (currentPost && currentUser) {
-      updateOnePost({ id: currentPost.id, changes: { thema, text } });
-      updateOneUser({ id: currentUser.id, changes: { name: userName } });
       patchDataPost({
         id: currentPost.id,
+        idUser: currentUser.id,
         postPatch: {
           thema,
           text,
@@ -74,10 +67,9 @@ export const FormsEdit = () => {
 
   const changeComment = ({ textComment, userNameComment }: IDataComment) => {
     if (currentUserComment && currentComment) {
-      updateOneComment({ id: currentComment.id, changes: { text: textComment } });
-      updateOneUser({ id: currentUserComment.id, changes: { name: userNameComment } });
       patchDataComment({
         id: currentComment.id,
+        idUser: currentUserComment.id,
         commentPatch: {
           text: textComment,
           user: { name: userNameComment },
