@@ -32,7 +32,7 @@ export const Application = () => {
     i18n.changeLanguage(option.value);
   };
 
-  const defaultValueSelect = useMemo(() => options.find((op) => op.value == i18n.language),
+  const defaultValueSelect = useMemo(() => options.find((op) => i18n.language?.includes(op.value)),
     [i18n.language]);
 
   return (

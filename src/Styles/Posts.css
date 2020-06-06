@@ -1,6 +1,6 @@
 .btnRemove, .btnEdit {
   cursor: pointer;
-  background-image: url('/img/close.png');
+  background-image: url('/public/img/close.png');
   width: 25px;
   height: 25px;
   position: absolute;

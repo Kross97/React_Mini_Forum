@@ -44,6 +44,7 @@ export const addPost = createAsyncThunk(
     const data = normalize(newPost, postsSchema);
     dispatch(allUsers.actions.add(data.entities.users?.[newPost.user.id]));
     dispatch(allPosts.actions.add(data.entities.posts?.[newPost.id]));
+    console.log('POST', newPost);
     axios.post('api/posts', newPost);
   },
 );

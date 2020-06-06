@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { enableBatching } from 'redux-batched-actions';
 import { Application } from './Componets/Application';
 import reducer from './reducers';
-import './public/locales';
+import './initI18next';
 
 const persistConfig = {
   key: 'root',

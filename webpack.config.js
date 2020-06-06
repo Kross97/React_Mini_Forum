@@ -85,7 +85,7 @@ module.exports = {
   devServer: {
     stats: 'errors-only',
     port: 7777,
-    contentBase: path.join(__dirname, 'src/public'),
+    contentBase: path.join(__dirname, 'src'),
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
