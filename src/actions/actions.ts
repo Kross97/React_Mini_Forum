@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios';
 import { normalize, schema } from 'normalizr';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { batchActions } from 'redux-batched-actions';
+import omit from 'lodash/omit';
 import { allPosts, allUsers, allComments } from '../reducers';
 import { IPostForServer, IDataPost, IDataComment } from './IActions';
 
@@ -23,7 +25,7 @@ const postsSchema = new schema.Entity(
 export const getAllPosts = createAsyncThunk(
   'getAllPosts/',
   async (_: any, { dispatch }) => {
-    const response = await axios.get('api/posts');
+    const response = await axios.get('api/posts/getposts');
     const data = normalize(response.data, [postsSchema]);
     console.log('Данные с локального сервера:', data);
     if (data.entities.users && data.entities.posts && data.entities.comments) {
@@ -40,12 +42,12 @@ export const getAllPosts = createAsyncThunk(
 
 export const addPost = createAsyncThunk(
   'addPost/',
-  (newPost: IPostForServer, { dispatch }) => {
+  (newPost: any, { dispatch }) => {
     const data = normalize(newPost, postsSchema);
     dispatch(allUsers.actions.add(data.entities.users?.[newPost.user.id]));
     dispatch(allPosts.actions.add(data.entities.posts?.[newPost.id]));
-    console.log('POST', newPost);
-    axios.post('api/posts', newPost);
+    const postForServer = omit(newPost, ['id', 'user.id']);
+    axios.post('api/posts/createpost', postForServer);
   },
 );
 
@@ -58,7 +60,7 @@ export const patchDataPost = createAsyncThunk(
     dispatch(allUsers.actions.updateOneUser({
       id: idUser, changes: { name: postPatch.user.name },
     }));
-    axios.patch(`api/posts/${id}`, postPatch);
+    axios.patch(`api/posts/patchpost/${id}`, postPatch);
   },
 );
 
@@ -94,7 +96,9 @@ export const addNewComent = createAsyncThunk(
         allComments.actions.add(comment),
       ]),
     );
-    axios.post(`api/posts/createcomment/${dataComment.postId}`, dataComment.newComment);
+    const commentForServer = omit(dataComment.newComment, ['id', 'user.id']);
+    console.log(commentForServer);
+    axios.post(`api/posts/createcomment/${dataComment.postId}`, commentForServer);
   },
 );
 
@@ -107,6 +111,6 @@ export const removePost = createAsyncThunk(
         allComments.actions.removeMany(dataPost.comments),
       ]),
     );
-    axios.delete(`api/posts/${dataPost.postId}`);
+    axios.delete(`api/posts/deletepost/${dataPost.postId}`);
   },
 );
