@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\ServerApp\\ServerApp.csproj": {}
+    "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\serverApp\\ServerApp.csproj": {}
   },
   "projects": {
-    "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\ServerApp\\ServerApp.csproj": {
+    "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\serverApp\\ServerApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\ServerApp\\ServerApp.csproj",
+        "projectUniqueName": "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\serverApp\\ServerApp.csproj",
         "projectName": "ServerApp",
-        "projectPath": "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\ServerApp\\ServerApp.csproj",
+        "projectPath": "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\serverApp\\ServerApp.csproj",
         "packagesPath": "C:\\Users\\077764842\\.nuget\\packages\\",
-        "outputPath": "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\ServerApp\\obj\\",
+        "outputPath": "D:\\Обучение програмированию\\DEX Technology\\Mini_Forum\\serverApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\077764842\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -55,6 +55,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.9.10, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",

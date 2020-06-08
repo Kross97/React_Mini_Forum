@@ -17,7 +17,6 @@ namespace ServerApp.Models
 
         public PostsContext(DbContextOptions<PostsContext> options) : base(options)
         {
-                //Database.EnsureDeleted();
                 Database.EnsureCreated();            
         }
 
@@ -32,17 +31,17 @@ namespace ServerApp.Models
             modelBuilder.Entity<User>().HasData(new User
             {
                 id = 1,
-                name = "Vasil",
+                name = "Кирилл",
             }, new User
             {
                 id = 2,
-                name = "Vovan",
+                name = "Владимир",
             });
 
             modelBuilder.Entity<Comment>().HasData(new Comment
             {
                 id = 1,
-                text = "hello!!!!",
+                text = "Полезная информация!",
                 userid = 2,
                 postid = 1,
             });
@@ -50,8 +49,8 @@ namespace ServerApp.Models
             modelBuilder.Entity<Post>().HasData(new Post
             {
                 id = 1,
-                text = "/Информация о работе с ASP.NET CORE и С#2/",
-                thema = "ASP.NET CORE C#2",
+                text = "/Информация о работе с ASP.NET CORE/",
+                thema = "ASP.NET CORE",
                 userid = 1,
             });
         }

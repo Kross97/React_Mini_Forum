@@ -14,8 +14,7 @@ namespace ServerApp
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("STAAART!1");
-            Debug.WriteLine("STAAART2!!");
+            Console.WriteLine("Welcome Server Mini_Forum!");
             CreateHostBuilder(args).Build().Run();
 
         }
