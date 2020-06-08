@@ -309,3 +309,4 @@ D:\Обучение програмированию\DEX Technology\Mini_Forum\ser
 D:\Обучение програмированию\DEX Technology\Mini_Forum\serverApp\bin\Debug\netcoreapp3.1\app\publish\appsettings.json
 D:\Обучение програмированию\DEX Technology\Mini_Forum\serverApp\bin\Debug\netcoreapp3.1\app\publish\ServerApp.deps.json
 D:\Обучение програмированию\DEX Technology\Mini_Forum\serverApp\bin\Debug\netcoreapp3.1\app\publish\ServerApp.runtimeconfig.json
+D:\Обучение програмированию\DEX Technology\Mini_Forum\serverApp\obj\Debug\netcoreapp3.1\ServerApp.MvcApplicationPartsAssemblyInfo.cache

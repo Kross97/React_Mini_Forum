@@ -40,10 +40,15 @@ namespace ServerApp
                 app.UseDeveloperExceptionPage();
             }
 
+            // работа со статикой
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            // добавляем настройку CORS
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthorization();
