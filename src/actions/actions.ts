@@ -28,12 +28,13 @@ export const getAllPosts = createAsyncThunk(
     const response = await axios.get('api/posts/getposts');
     const data = normalize(response.data, [postsSchema]);
     console.log('Данные с локального сервера:', data);
-    if (data.entities.users && data.entities.posts && data.entities.comments) {
+    if (data.entities.users && data.entities.posts) {
+      const allCommentsData = data.entities.comments ? data.entities.comments : [];
       dispatch(
         batchActions([
           allUsers.actions.setAllUsers(data.entities.users),
           allPosts.actions.setAllPosts(data.entities.posts),
-          allComments.actions.setAllComments(data.entities.comments),
+          allComments.actions.setAllComments(allCommentsData),
         ]),
       );
     }
