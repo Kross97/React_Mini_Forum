@@ -14,11 +14,24 @@ const userSchema = new schema.Entity('users');
 const commentsSchema = new schema.Entity(
   'comments',
   { user: userSchema },
+  {
+    processStrategy: (entity) => {
+      delete entity.userid;
+      delete entity.postid;
+      return entity;
+    },
+  },
 );
 
 const postsSchema = new schema.Entity(
   'posts',
   { user: userSchema, comments: [commentsSchema] },
+  {
+    processStrategy: (entity) => {
+      delete entity.userid;
+      return entity;
+    },
+  },
 );
 
 
@@ -43,7 +56,7 @@ export const getAllPosts = createAsyncThunk(
 
 export const addPost = createAsyncThunk(
   'addPost/',
-  (newPost: any, { dispatch }) => {
+  (newPost: IPostForServer, { dispatch }) => {
     const data = normalize(newPost, postsSchema);
     dispatch(allUsers.actions.add(data.entities.users?.[newPost.user.id]));
     dispatch(allPosts.actions.add(data.entities.posts?.[newPost.id]));
@@ -98,7 +111,6 @@ export const addNewComent = createAsyncThunk(
       ]),
     );
     const commentForServer = omit(dataComment.newComment, ['id', 'user.id']);
-    console.log(commentForServer);
     axios.post(`api/posts/createcomment/${dataComment.postId}`, commentForServer);
   },
 );
