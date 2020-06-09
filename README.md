@@ -9,7 +9,7 @@
 7.redux-persist,
 8.redux-batched-actions )
 
-1 шаг запускаем сервер из ярлыка Server_Start
+1 шаг запускаем сервер из ярлыка Start_Server
 
 2 шаг npm run start
 
