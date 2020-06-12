@@ -37,8 +37,6 @@ export const FormAdd = (props: IFormAdd) => {
       },
       comments: [],
     };
-    console.log('FORM', newPost);
-    console.log('FORM2', newPost.user);
     addPost(newPost);
     changeShowFormAdd();
   };

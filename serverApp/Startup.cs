@@ -26,7 +26,7 @@ namespace ServerApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=TestDB1;Trusted_Connection=True;";
+            string con = "Server=(localdb)\\mssqllocaldb;Database=MiniForum;Trusted_Connection=True;";
 
             services.AddDbContext<PostsContext>(options => options.UseSqlServer(con));
             services.AddControllers();
@@ -43,8 +43,6 @@ namespace ServerApp
             // работа со статикой
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

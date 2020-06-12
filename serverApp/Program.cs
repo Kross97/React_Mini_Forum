@@ -23,7 +23,7 @@ namespace ServerApp
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("https://localhost:44303/");
+                    webBuilder.UseStartup<Startup>().UseUrls("http://localhost:44303/");
                 });
     }
 }

@@ -10,11 +10,12 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Dynamic;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ServerApp.Filters;
 
 namespace ServerApp.Controllers
 {
-
+    [AddCookieVisit]
     public class PostsController : Controller
     {
         private PostsContext db;

@@ -7,7 +7,7 @@ import omit from 'lodash/omit';
 import { allPosts, allUsers, allComments } from '../reducers';
 import { IPostForServer, IDataPost, IDataComment } from './IActions';
 
-axios.defaults.baseURL = 'https://localhost:44303/';
+axios.defaults.baseURL = 'http://localhost:44303/';
 
 const userSchema = new schema.Entity('users');
 
