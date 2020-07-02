@@ -1,4 +1,4 @@
-# Mini_Forum
+# React_Mini_Forum
 (Технологии:
 1.@reduxjs/toolkit(createEntityAdapter, createAsyncThunk),
 2.normalizr.js,
