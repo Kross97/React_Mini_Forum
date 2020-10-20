@@ -15,6 +15,7 @@ class Post extends Model
 
     public $timestamps = false;
 
+
  public function user() {
     return $this->hasOne('App\Models\User');
  }

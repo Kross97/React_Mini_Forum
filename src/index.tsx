@@ -11,7 +11,7 @@ import reducer from './reducers';
 import './initI18next';
 
 const persistConfig = {
-  key: 'root-2',
+  key: 'root-5',
   storage,
 };
 

@@ -76,7 +76,7 @@ export const patchDataPost = createAsyncThunk(
     dispatch(allUsers.actions.updateOneUser({
       id: idUser, changes: { name: postPatch.user.name },
     }));
-    axios.patch(`api/posts/patchpost/${id}`, postPatch);
+    axios.put(`api/posts/patchpost/${id}`, postPatch);
   },
 );
 
@@ -89,7 +89,7 @@ export const patchDataComment = createAsyncThunk(
     dispatch(allUsers.actions.updateOneUser({
       id: idUser, changes: { name: commentPatch.user.name },
     }));
-    axios.patch(`api/posts/patchcomment/${id}`, commentPatch);
+    axios.put(`api/posts/patchcomment/${id}`, commentPatch);
   },
 );
 

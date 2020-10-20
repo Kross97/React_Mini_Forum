@@ -16,7 +16,7 @@ class Comment extends Model
     ];
 
     public function user() {
-        return $this->hasOne('App\Models\Comment');
+        return $this->hasOne('App\Models\User');
     }
 
     public function post() {
