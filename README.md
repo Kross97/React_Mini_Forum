@@ -1,4 +1,4 @@
-# React_Mini_Forum
+# React_Mini_Forum (React / PHP) 1\3 серии форумов
 (Технологии:
 1.@reduxjs/toolkit(createEntityAdapter, createAsyncThunk),
 2.normalizr.js,
